@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=unity
 
 .utmp/
-
+Assets/Plugins/Sirenix/
 
 ### Unity ###
 # This .gitignore file should be placed at the root of your Unity project directory
