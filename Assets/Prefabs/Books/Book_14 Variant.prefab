@@ -13,6 +13,10 @@ PrefabInstance:
       value: Book_14 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1698971335121660, guid: f09e10b910ed4794cb1663d92c5ef4fb, type: 3}
+      propertyPath: m_TagString
+      value: Book
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698971335121660, guid: f09e10b910ed4794cb1663d92c5ef4fb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}

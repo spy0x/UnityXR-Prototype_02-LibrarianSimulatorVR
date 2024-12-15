@@ -1,14 +1,19 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Climbing;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Controllers")]
+    [SerializeField] Transform leftHand;
+    [SerializeField] Transform rightHand;
     [Header("Run Settings")] [SerializeField]
     XRNode leftHandNode = XRNode.LeftHand;
 
@@ -32,6 +37,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
     private float currentGravity;
 
+    [Header("Far Interaction Settings")] 
+    [SerializeField] float farInteractionDistance = 10f;
+    [SerializeField] float sphereCastRadius = 0.25f;
+    [SerializeField] NearFarInteractor rightHandInteractor;
+    [SerializeField] NearFarInteractor leftHandInteractor;
+    
     // CLIMB SETTINGS
     private List<ClimbInteractable> climbInteractables = new List<ClimbInteractable>();
     private bool isClimbing = false;
@@ -60,6 +71,21 @@ public class PlayerController : MonoBehaviour
     {
         TryMove();
         TryRun();
+        TryFarInteract(leftHandInteractor);
+        TryFarInteract(rightHandInteractor);
+    }
+
+    private void TryFarInteract(NearFarInteractor controller)
+    {
+        if (Physics.SphereCast(controller.transform.position, sphereCastRadius, controller.transform.forward, out var hit,
+                farInteractionDistance))
+        {
+            if (hit.collider.CompareTag("Book"))
+            {
+                Debug.Log("Interactable object found: " + hit.collider.name);
+                controller.enableFarCasting = true;
+            }
+        }
     }
 
     private void TryMove()
