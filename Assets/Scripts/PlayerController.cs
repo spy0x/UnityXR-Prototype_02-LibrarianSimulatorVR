@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            dynamicMoveProvider.moveSpeed = isClimbing ? 0 : originalMoveSpeed;
+            dynamicMoveProvider.moveSpeed = isClimbing ? 0 : Mathf.Lerp(dynamicMoveProvider.moveSpeed, originalMoveSpeed, Time.deltaTime);
         }
 
         // Update previous positions

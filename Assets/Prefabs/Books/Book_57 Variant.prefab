@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Book_57 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1851909307219468, guid: c9af877c9e2ef964baffd5ad3713c982, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4442162351645336, guid: c9af877c9e2ef964baffd5ad3713c982, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.25
@@ -78,6 +82,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1851909307219468, guid: c9af877c9e2ef964baffd5ad3713c982, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3356296519805029243}
+    - targetCorrespondingSourceObject: {fileID: 1851909307219468, guid: c9af877c9e2ef964baffd5ad3713c982, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -667177268912766152}
   m_SourcePrefab: {fileID: 100100000, guid: c9af877c9e2ef964baffd5ad3713c982, type: 3}
 --- !u!1 &3293871685800489311 stripped
 GameObject:
@@ -108,7 +115,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &-3356296519805029243
@@ -242,3 +249,52 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 1
+--- !u!114 &-667177268912766152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3293871685800489311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e0a5b5ff5540f5b14dd29d46faec22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransitionDuration: 0.125
+  m_InteractableSource: {fileID: 0}
+  m_IgnoreHoverEvents: 0
+  m_IgnoreHoverPriorityEvents: 1
+  m_IgnoreFocusEvents: 1
+  m_IgnoreSelectEvents: 1
+  m_IgnoreActivateEvents: 1
+  m_SelectClickAnimationMode: 1
+  m_ActivateClickAnimationMode: 1
+  m_ClickAnimationDuration: 0.25
+  m_ClickAnimationCurve:
+    m_UseConstant: 1
+    m_ConstantValue:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_Variable: {fileID: 0}
