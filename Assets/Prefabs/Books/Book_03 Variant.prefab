@@ -131,6 +131,10 @@ PrefabInstance:
       value: Book_03 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1095381659082510, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095381659082510, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
       propertyPath: m_TagString
       value: Book
       objectReference: {fileID: 0}
@@ -140,15 +144,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4768874184288814, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.25
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 4768874184288814, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.25
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 4768874184288814, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.25
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 4768874184288814, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -210,6 +214,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1095381659082510, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5055891291939371618}
+    - targetCorrespondingSourceObject: {fileID: 1095381659082510, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2800099892878951899}
   m_SourcePrefab: {fileID: 100100000, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}
 --- !u!23 &1662766951291952825 stripped
 MeshRenderer:
@@ -428,6 +435,18 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_Variable: {fileID: 0}
+--- !u!114 &2800099892878951899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676888540719491623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c130221012f2141b58fe793f1d6a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1681694531262045959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4768874184288814, guid: d4ea1b5a817a24748a674f21c65f6c1d, type: 3}

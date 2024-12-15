@@ -817,7 +817,7 @@ MonoBehaviour:
   characterController: {fileID: 3361080141957674903}
   jumpHeight: 1
   gravityValue: -15
-  farInteractionDistance: 3
+  farInteractionDistance: 2
   sphereCastRadius: 0.1
   rightHandInteractor: {fileID: 205571619874820291}
   leftHandInteractor: {fileID: 1119563524013826547}
@@ -1295,7 +1295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 3
+    m_Bits: 6
   m_Handedness: 0
   m_AttachTransform: {fileID: 8123525924460457170}
   m_KeepSelectedTargetValid: 1
@@ -1897,7 +1897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 3
+    m_Bits: 6
   m_Handedness: 0
   m_AttachTransform: {fileID: 1060284533966182573}
   m_KeepSelectedTargetValid: 1
@@ -2775,7 +2775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2442306273320644280, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2442306273320644280, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
       propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.size
@@ -2951,7 +2951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4808866746549998793, guid: b200f6587d118224eba8467281481800, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4808866746549998793, guid: b200f6587d118224eba8467281481800, type: 3}
       propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.size

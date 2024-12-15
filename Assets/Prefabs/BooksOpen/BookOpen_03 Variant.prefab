@@ -10,7 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1236452791816066, guid: f3e273b40aec9094ba1905b2361ac36d, type: 3}
       propertyPath: m_Name
-      value: BookOpen_03
+      value: BookOpen_03 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978405505863672, guid: f3e273b40aec9094ba1905b2361ac36d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978405505863672, guid: f3e273b40aec9094ba1905b2361ac36d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978405505863672, guid: f3e273b40aec9094ba1905b2361ac36d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 4978405505863672, guid: f3e273b40aec9094ba1905b2361ac36d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 4978405505863672, guid: f3e273b40aec9094ba1905b2361ac36d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978405505863672, guid: f3e273b40aec9094ba1905b2361ac36d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
