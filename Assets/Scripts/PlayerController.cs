@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Climbing;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class PlayerController : MonoBehaviour
@@ -25,8 +28,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] CharacterController characterController;
     [SerializeField] float jumpHeight = 1.0f;
-    [SerializeField] float gravityValue = -9.81f;
+    [SerializeField] float gravityValue = -15f;
     private Vector3 playerVelocity;
+    private float currentGravity;
+
+    // CLIMB SETTINGS
+    private List<ClimbInteractable> climbInteractables = new List<ClimbInteractable>();
+    private bool isClimbing = false;
 
     void OnEnable()
     {
@@ -42,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        currentGravity = gravityValue;
         originalMoveSpeed = dynamicMoveProvider.moveSpeed;
         leftHandPrevPosition = InputTracking.GetLocalPosition(leftHandNode);
         rightHandPrevPosition = InputTracking.GetLocalPosition(rightHandNode);
@@ -49,8 +58,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        TryRun();
         TryMove();
+        TryRun();
     }
 
     private void TryMove()
@@ -60,7 +69,11 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
+        if (!isClimbing)
+        {
+            playerVelocity.y += currentGravity * Time.deltaTime;
+        }
+
         characterController.Move(playerVelocity * Time.deltaTime);
     }
 
@@ -75,7 +88,7 @@ public class PlayerController : MonoBehaviour
         rightSwingSpeed = (rightHandPosition - rightHandPrevPosition).magnitude / Time.deltaTime;
 
         // Check for alternating motion
-        if (leftSwingSpeed > swingThreshold && rightSwingSpeed > swingThreshold &&
+        if (!isClimbing && leftSwingSpeed > swingThreshold && rightSwingSpeed > swingThreshold &&
             Vector3.Dot(leftHandPosition - leftHandPrevPosition, rightHandPosition - rightHandPrevPosition) < 0)
         {
             // Move the player forward
@@ -83,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            dynamicMoveProvider.moveSpeed = originalMoveSpeed;
+            dynamicMoveProvider.moveSpeed = isClimbing ? 0 : originalMoveSpeed;
         }
 
         // Update previous positions
@@ -94,7 +107,23 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext obj)
     {
-        if (!characterController.isGrounded) return;
+        if (!characterController.isGrounded || isClimbing) return;
         playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+    }
+
+    public void OnClimbSelected(SelectEnterEventArgs args)
+    {
+        ClimbInteractable climbInteractable = args.interactableObject as ClimbInteractable;
+        if (climbInteractable == null) return;
+        climbInteractables.Add(climbInteractable);
+        isClimbing = true;
+    }
+
+    public void OnClimbDeselected(SelectExitEventArgs args)
+    {
+        ClimbInteractable climbInteractable = args.interactableObject as ClimbInteractable;
+        if (climbInteractable == null) return;
+        climbInteractables.Remove(climbInteractable);
+        isClimbing = climbInteractables.Count > 0;
     }
 }
