@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider.CompareTag("Book"))
             {
-                Debug.Log("Interactable object found: " + hit.collider.name);
                 controller.enableFarCasting = true;
             }
         }

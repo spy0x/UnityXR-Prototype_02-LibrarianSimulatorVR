@@ -27,19 +27,19 @@ public class Bookshelf : MonoBehaviour
     [SerializeField] private BookInteractor[] bookInteractors;
     [Header("DEVELOP")]
     [SerializeField] BooksSpawner[] booksSpawners;
+
+    public static event Action OnInsertedBook;
     
     private XRSocketInteractor socketInteractor;
+    private BookInteractor currentBookInteractor;
+    public BookInteractor CurrentBookInteractor => currentBookInteractor;
     public XRSocketInteractor SocketInteractor => socketInteractor;
     public DeweyCategory Category => category;
     
     private bool isActive;
     public bool IsActive => isActive;
-
-    private void Start()
-    {
-        DisableAllBookInteractors();
-        ChooseRandomSocket();
-    }
+    private Book currentBook;
+    public Book CurrentBook => currentBook;
 
     private void DisableAllBookInteractors()
     {
@@ -58,16 +58,21 @@ public class Bookshelf : MonoBehaviour
     private void OnSelectExited(SelectExitEventArgs arg0)
     {
         XRGrabInteractable grabInteractable = arg0.interactableObject as XRGrabInteractable;
+        currentBook = arg0.interactableObject.transform.GetComponent<Book>();
         if (!grabInteractable) return;
         grabInteractable.enabled = false;
         XRInteractableAffordanceStateProvider affordanceStateProvider = grabInteractable.GetComponent<XRInteractableAffordanceStateProvider>();
         if (affordanceStateProvider) affordanceStateProvider.enabled = false;
+        OnInsertedBook?.Invoke();
     }
     public void ChooseRandomSocket()
     {
+        DisableAllBookInteractors();
         isActive = true;
+        // int randomIndex = 0;
         int randomIndex = UnityEngine.Random.Range(0, bookInteractors.Length);
-        bookInteractors[randomIndex].GetChildBook().SetActive(false);
+        currentBookInteractor = bookInteractors[randomIndex];
+        currentBookInteractor.GetChildBook().SetActive(false);
         socketInteractor = bookInteractors[randomIndex].SocketInteractor;
         socketInteractor.enabled = true;
         socketInteractor.selectExited.AddListener(OnSelectExited);
@@ -76,10 +81,8 @@ public class Bookshelf : MonoBehaviour
     [Button]
     public bool CheckBook()
     {
-        if (socketInteractor.interactablesSelected.Count == 0) return false;
-        Book book = socketInteractor.interactablesSelected[0].transform.GetComponent<Book>();
-        Debug.Log(book && book.Category == category);
-        return book && book.Category == category;
+        Debug.Log(currentBook && currentBook.Category == category);
+        return currentBook && currentBook.Category == category;
     }
     
     [Button]
