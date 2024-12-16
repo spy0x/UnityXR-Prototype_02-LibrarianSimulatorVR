@@ -21,17 +21,12 @@ public enum DeweyCategory
     History = 900
 }
 
-[Serializable]
-public struct BookInteractor
-{
-    public GameObject book;
-    public XRSocketInteractor socketInteractor;
-}
-
 public class Bookshelf : MonoBehaviour
 {
     [SerializeField] DeweyCategory category;
     [SerializeField] private BookInteractor[] bookInteractors;
+    [Header("DEVELOP")]
+    [SerializeField] BooksSpawner[] booksSpawners;
     
     private XRSocketInteractor socketInteractor;
     public XRSocketInteractor SocketInteractor => socketInteractor;
@@ -42,7 +37,16 @@ public class Bookshelf : MonoBehaviour
 
     private void Start()
     {
+        DisableAllBookInteractors();
         ChooseRandomSocket();
+    }
+
+    private void DisableAllBookInteractors()
+    {
+        foreach (var bookInteractor in bookInteractors)
+        {
+            bookInteractor.SocketInteractor.enabled = false;
+        }
     }
 
     private void OnDisable()
@@ -62,8 +66,8 @@ public class Bookshelf : MonoBehaviour
     {
         isActive = true;
         int randomIndex = UnityEngine.Random.Range(0, bookInteractors.Length);
-        bookInteractors[randomIndex].book.SetActive(false);
-        socketInteractor = bookInteractors[randomIndex].socketInteractor;
+        bookInteractors[randomIndex].GetChildBook().SetActive(false);
+        socketInteractor = bookInteractors[randomIndex].SocketInteractor;
         socketInteractor.enabled = true;
         socketInteractor.selectExited.AddListener(OnSelectExited);
     }
@@ -75,6 +79,39 @@ public class Bookshelf : MonoBehaviour
         Book book = socketInteractor.interactablesSelected[0].transform.GetComponent<Book>();
         Debug.Log(book && book.Category == category);
         return book && book.Category == category;
+    }
+    
+    [Button]
+    private void SpawnBooks()
+    {
+        foreach (var booksSpawner in booksSpawners)
+        {
+            booksSpawner.SpawnBooks();
+        }
+    }
+    [Button("Spawn Books In Interactors")]
+    private void SpawnBooksInInteractors()
+    {
+        foreach (var bookInteractor in bookInteractors)
+        {
+            bookInteractor.BookSpawner.SpawnBooks();
+        }
+    }
+    [Button("Clear Interactor Books")]
+    private void ClearBooks()
+    {
+        foreach (var bookInteractor in bookInteractors)
+        {
+            bookInteractor.BookSpawner.DestroySpawnedBooks();
+        }
+    }
+    [Button("Clear Bookshelve Books")]
+    private void ClearBookshelveBooks()
+    {
+        foreach (var booksSpawner in booksSpawners)
+        {
+            booksSpawner.DestroySpawnedBooks();
+        }
     }
     
 }

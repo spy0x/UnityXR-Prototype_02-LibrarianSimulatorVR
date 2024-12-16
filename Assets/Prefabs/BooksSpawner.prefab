@@ -1,0 +1,192 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &722427515426850819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1588514411679343731}
+  - component: {fileID: 7432714071999943324}
+  - component: {fileID: 409002756774780631}
+  - component: {fileID: 9009742250185541538}
+  m_Layer: 0
+  m_Name: Books_08 Variant(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1588514411679343731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722427515426850819}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 213184912474859627}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7432714071999943324
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722427515426850819}
+  m_Mesh: {fileID: 4300000, guid: bad878b7f95bcd642940b373f175cd48, type: 3}
+--- !u!23 &409002756774780631
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722427515426850819}
+  m_Enabled: 1
+  m_CastShadows: 2
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 158e5675bb3289b48b0e3c75d10a6ff1, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9009742250185541538
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722427515426850819}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: bad878b7f95bcd642940b373f175cd48, type: 3}
+--- !u!1 &9213926840908146677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 213184912474859627}
+  - component: {fileID: 1402714480955155505}
+  m_Layer: 0
+  m_Name: BooksSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &213184912474859627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213926840908146677}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.11185902, y: 0.03794681, z: 0.0075515117}
+  m_LocalScale: {x: 0.06666667, y: 0.07125942, z: 0.06666667}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1588514411679343731}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1402714480955155505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213926840908146677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4647fd4205e843045aadb877738d39ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bookPrefabs:
+  - {fileID: 5245860766159556927, guid: 232f41f78ef082e41ae844905e71bdbf, type: 3}
+  - {fileID: 4067230093459173354, guid: f36fb33029444ff4f9fe47d7a22ebc77, type: 3}
+  - {fileID: 5659895586061227369, guid: 49ff8dfcbbe27e34498b37ff66777def, type: 3}
+  - {fileID: 1395391437571094133, guid: eb7848b444c29ca4597da5171d1842ae, type: 3}
+  - {fileID: 2352437032533170089, guid: af23aabfabdc5a344869cc674c4321b9, type: 3}
+  - {fileID: 5210330863042212074, guid: d9c83422cffd30e44aa917a83be6a93f, type: 3}
+  - {fileID: 2256545934844646985, guid: 8fa9a4c9cae93984d91fb9e03ae98676, type: 3}
+  - {fileID: 2468033115960810334, guid: 05ff787018ea57044bb92c46dfd4a7f8, type: 3}
+  - {fileID: 4048983221636176757, guid: a8e597002a257924595c70d2f0b31688, type: 3}
+  - {fileID: 5636139889094618287, guid: b0a381eeea35f9d4fb1a77b4ffaa1e68, type: 3}
+  - {fileID: 1708360213554455651, guid: 1bbad432f7e13454493bfd5ad92e8917, type: 3}
+  - {fileID: 6908092426652096801, guid: f497d685499fed949adeeb9369071827, type: 3}
+  - {fileID: 7125822843165723695, guid: 744adeff14dbb0343932009da004836f, type: 3}
+  - {fileID: 4097396518130548129, guid: 6ebeea824abdb1e4b8212828ae26d92e, type: 3}
+  - {fileID: 8655194425373793187, guid: 937ec950425456b48bcec78359462fff, type: 3}
+  - {fileID: 3586834885525734194, guid: a022c40800411874fa75e1c0f41ac7c5, type: 3}
+  - {fileID: 2758057210778112558, guid: 9016690116061a14184854647f8fc319, type: 3}
+  - {fileID: 3164726412546456458, guid: e824389e5bf390546853bcd118e7dcaa, type: 3}
+  - {fileID: 1044699175402571959, guid: 2dd4068215920f7469dc9c3ae9047b9c, type: 3}
+  - {fileID: 4051161990049765841, guid: 0e03556511ba4cc4dbd18aec9c02d44a, type: 3}
+  - {fileID: 4939877749995089694, guid: 6a95e951985121944bfc6eb4571f0d5e, type: 3}
+  - {fileID: 5914451543067396240, guid: e4737fd176e1b3342ad3dd7dfb31320b, type: 3}
+  - {fileID: 8539339998630789697, guid: d22444348cf814743a50a76766ab0f1b, type: 3}
+  - {fileID: 5470059742157581118, guid: f87a6b97614d29146a1711324c3cba13, type: 3}
+  - {fileID: 7120202586045853430, guid: 71e4ad06800ee274dba209d82ebe2157, type: 3}
+  - {fileID: 388318648009627710, guid: 8eeaf836126b98a4e8f484b3b79110d2, type: 3}
+  - {fileID: 2119651003587940006, guid: 5a520d9ecc3347e49831a54a5b348a34, type: 3}
+  - {fileID: 1648890673433028715, guid: fc3c100b6f864d8489e5440146967d54, type: 3}
+  - {fileID: 2559362155027152592, guid: 332ddb65654ea7242b400304f60a007e, type: 3}
+  - {fileID: 5162530939802734686, guid: b9b6582e025976848a64a319acb06592, type: 3}
+  - {fileID: 8931436965073872797, guid: cc5e5627ce7f3b24384e212e3bd136c0, type: 3}
+  - {fileID: 3691453747475034904, guid: f9438967216aba7489e43077b99533f1, type: 3}
+  - {fileID: 5882058064528852569, guid: aa3d69e5bb777e245a357836a0536f27, type: 3}
+  - {fileID: 1932002330893927530, guid: 7870ac8281f43324c92f01a183c72397, type: 3}
+  - {fileID: 8188189268307999366, guid: 5b74262fcf0e470438c7909fa9749c84, type: 3}
