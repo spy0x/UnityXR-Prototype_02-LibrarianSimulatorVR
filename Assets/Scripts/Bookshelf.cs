@@ -51,6 +51,7 @@ public class Bookshelf : MonoBehaviour
 
     private void OnDisable()
     {
+        if(!socketInteractor) return;
         socketInteractor.selectExited.RemoveListener(OnSelectExited);
     }
 
@@ -113,5 +114,11 @@ public class Bookshelf : MonoBehaviour
             booksSpawner.DestroySpawnedBooks();
         }
     }
-    
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!socketInteractor) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(socketInteractor.transform.position, 0.2f);
+    }
 }
