@@ -107,7 +107,6 @@ public class GameManager : MonoBehaviour
             else badBooks++;
         }
 
-        Debug.Log("Llegue aqui");
         return true;
     }
 

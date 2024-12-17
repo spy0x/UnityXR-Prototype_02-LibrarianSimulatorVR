@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Book_34 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1578070874511064, guid: 930d7b1a750d2f144a91ab60fca13b78, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4903201715248950, guid: 930d7b1a750d2f144a91ab60fca13b78, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.35

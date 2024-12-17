@@ -1016,6 +1016,7 @@ MonoBehaviour:
   - {fileID: 2740897159696229227}
   - {fileID: 9207027609634771773}
   activeSocketMaterial: {fileID: 2100000, guid: a5a9d84257a24e1439001e6c31a15c59, type: 2}
+  signTextsUI: []
 --- !u!1 &1404700197716549939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,7 +1626,7 @@ GameObject:
   - component: {fileID: 1572473534069114187}
   - component: {fileID: 5110513737162184828}
   - component: {fileID: 5980698979506438081}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Teleport Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2702,7 +2703,7 @@ GameObject:
   - component: {fileID: 3799923431944511350}
   - component: {fileID: 8575278496347159125}
   - component: {fileID: 317600183274958779}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Teleport Volume (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4264,7 +4265,7 @@ GameObject:
   - component: {fileID: 6850715443498578892}
   - component: {fileID: 1055503247406735324}
   - component: {fileID: 3612054257212162094}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Teleport Volume (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

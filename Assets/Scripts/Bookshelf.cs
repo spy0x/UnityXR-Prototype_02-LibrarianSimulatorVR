@@ -85,7 +85,7 @@ public class Bookshelf : MonoBehaviour
     private void OnDisable()
     {
         if(!socketInteractor) return;
-        socketInteractor.selectExited.RemoveListener(OnSelectExited);
+        socketInteractor.selectEntered.RemoveListener(OnSelectEntered);
     }
     public void ChooseRandomSocket()
     {
@@ -95,11 +95,12 @@ public class Bookshelf : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, bookInteractors.Length);
         currentBookInteractor = bookInteractors[randomIndex];
         if (activeSocketMaterial) currentBookInteractor.GetComponentInChildren<Renderer>().material = activeSocketMaterial;
+        currentBookInteractor.transform.GetChild(0).GetComponentInChildren<Collider>().enabled = false;
         socketInteractor = bookInteractors[randomIndex].SocketInteractor;
         socketInteractor.enabled = true;
-        socketInteractor.selectExited.AddListener(OnSelectExited);
+        socketInteractor.selectEntered.AddListener(OnSelectEntered);
     }
-    
+
     [Button]
     public bool CheckBook()
     {
@@ -140,7 +141,7 @@ public class Bookshelf : MonoBehaviour
         }
     }
     
-    private void OnSelectExited(SelectExitEventArgs arg0)
+    private void OnSelectEntered(SelectEnterEventArgs arg0)
     {
         currentBook = arg0.interactableObject.transform.GetComponent<Book>();
         OnInsertedBook?.Invoke();
