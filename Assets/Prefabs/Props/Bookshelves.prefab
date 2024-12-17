@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bookshelves
       objectReference: {fileID: 0}
+    - target: {fileID: 2623462304086127739, guid: 91854b39894b66a44a1375021f4401ae, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3593768431478916504, guid: 91854b39894b66a44a1375021f4401ae, type: 3}
       propertyPath: signTextsUI.Array.size
       value: 2
