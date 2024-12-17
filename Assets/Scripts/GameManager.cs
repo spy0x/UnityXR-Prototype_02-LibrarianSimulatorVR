@@ -8,17 +8,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] Bookshelf[] bookshelves;
     [SerializeField] float booksToOrder = 5;
     [SerializeField] private Transform[] bookSpawnPoints;
-    [Header("Prefabs")] 
-    [SerializeField] private GameObject[] booksPrefab000 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab100 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab200 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab300 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab400 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab500 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab600 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab700 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab800 = new GameObject[0];
-    [SerializeField] private GameObject[] booksPrefab900 = new GameObject[0];
+    [Header("Prefabs")] [SerializeField] private GameObject[] books000General = new GameObject[0];
+    [SerializeField] private GameObject[] books100Philosophy = new GameObject[0];
+    [SerializeField] private GameObject[] books200Religion = new GameObject[0];
+    [SerializeField] private GameObject[] books300SocialScience = new GameObject[0];
+    [SerializeField] private GameObject[] books400Language = new GameObject[0];
+    [SerializeField] private GameObject[] books500PureScience = new GameObject[0];
+    [SerializeField] private GameObject[] books600Technology = new GameObject[0];
+    [SerializeField] private GameObject[] books700Arts = new GameObject[0];
+    [SerializeField] private GameObject[] books800Literature = new GameObject[0];
+    [SerializeField] private GameObject[] books900History = new GameObject[0];
 
     private Dictionary<DeweyCategory, GameObject[]> booksByCategory = new Dictionary<DeweyCategory, GameObject[]>();
 
@@ -26,12 +25,13 @@ public class GameManager : MonoBehaviour
     private float goodBooks = 0;
     private float badBooks = 0;
     private float totalBooks = 0;
+    private List<Bookshelf> bookshelvesWithBooks = new List<Bookshelf>();
 
     private void OnEnable()
     {
         Bookshelf.OnInsertedBook += TryEndGame;
     }
-    
+
     private void OnDisable()
     {
         Bookshelf.OnInsertedBook -= TryEndGame;
@@ -40,27 +40,44 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         FillBooksByCategory();
-        foreach (var bookshelf in bookshelves)
+        ActivateBookshelves();
+    }
+
+    private void ActivateBookshelves()
+    {
+        for (int i = 0; i < bookshelves.Length; i++)
         {
             totalBooks++;
             if (totalBooks > booksToOrder) break;
-            bookshelf.ChooseRandomSocket();
-            SpawnBookToOrder(bookshelf.Category);
+            bookshelvesWithBooks.Add(GetRandomBookshelf());
+            bookshelvesWithBooks[i].ChooseRandomSocket();
+            SpawnBookToOrder(bookshelvesWithBooks[i].Category);
         }
+    }
+
+    private Bookshelf GetRandomBookshelf()
+    {
+        Bookshelf randomBookshelf;
+        do
+        {
+            randomBookshelf = bookshelves[Random.Range(0, bookshelves.Length)];
+        } while (!bookshelvesWithBooks.Contains(randomBookshelf));
+
+        return randomBookshelf;
     }
 
     private void FillBooksByCategory()
     {
-        booksByCategory.Add(DeweyCategory.General, booksPrefab000);
-        booksByCategory.Add(DeweyCategory.Philosophy, booksPrefab100);
-        booksByCategory.Add(DeweyCategory.Religion, booksPrefab200);
-        booksByCategory.Add(DeweyCategory.SocialScience, booksPrefab300);
-        booksByCategory.Add(DeweyCategory.Language, booksPrefab400);
-        booksByCategory.Add(DeweyCategory.PureScience, booksPrefab500);
-        booksByCategory.Add(DeweyCategory.Technology, booksPrefab600);
-        booksByCategory.Add(DeweyCategory.Arts, booksPrefab700);
-        booksByCategory.Add(DeweyCategory.Literature, booksPrefab800);
-        booksByCategory.Add(DeweyCategory.History, booksPrefab900);
+        booksByCategory.Add(DeweyCategory.General, books000General);
+        booksByCategory.Add(DeweyCategory.Philosophy, books100Philosophy);
+        booksByCategory.Add(DeweyCategory.Religion, books200Religion);
+        booksByCategory.Add(DeweyCategory.SocialScience, books300SocialScience);
+        booksByCategory.Add(DeweyCategory.Language, books400Language);
+        booksByCategory.Add(DeweyCategory.PureScience, books500PureScience);
+        booksByCategory.Add(DeweyCategory.Technology, books600Technology);
+        booksByCategory.Add(DeweyCategory.Arts, books700Arts);
+        booksByCategory.Add(DeweyCategory.Literature, books800Literature);
+        booksByCategory.Add(DeweyCategory.History, books900History);
     }
 
     private void SpawnBookToOrder(DeweyCategory category)
@@ -85,10 +102,11 @@ public class GameManager : MonoBehaviour
         foreach (var bookshelf in bookshelves)
         {
             if (!bookshelf.IsActive) continue;
-            if (!bookshelf.CurrentBook) return false; 
+            if (!bookshelf.CurrentBook) return false;
             if (bookshelf.CheckBook()) goodBooks++;
             else badBooks++;
         }
+
         Debug.Log("Llegue aqui");
         return true;
     }

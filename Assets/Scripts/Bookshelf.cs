@@ -24,9 +24,10 @@ public enum DeweyCategory
 public class Bookshelf : MonoBehaviour
 {
     [SerializeField] DeweyCategory category;
-    [SerializeField] private BookInteractor[] bookInteractors;
+    [SerializeField] BookInteractor[] bookInteractors;
     [Header("DEVELOP")]
     [SerializeField] BooksSpawner[] booksSpawners;
+    [SerializeField] Material activeSocketMaterial;
 
     public static event Action OnInsertedBook;
     
@@ -54,17 +55,6 @@ public class Bookshelf : MonoBehaviour
         if(!socketInteractor) return;
         socketInteractor.selectExited.RemoveListener(OnSelectExited);
     }
-
-    private void OnSelectExited(SelectExitEventArgs arg0)
-    {
-        XRGrabInteractable grabInteractable = arg0.interactableObject as XRGrabInteractable;
-        currentBook = arg0.interactableObject.transform.GetComponent<Book>();
-        if (!grabInteractable) return;
-        grabInteractable.enabled = false;
-        XRInteractableAffordanceStateProvider affordanceStateProvider = grabInteractable.GetComponent<XRInteractableAffordanceStateProvider>();
-        if (affordanceStateProvider) affordanceStateProvider.enabled = false;
-        OnInsertedBook?.Invoke();
-    }
     public void ChooseRandomSocket()
     {
         DisableAllBookInteractors();
@@ -72,7 +62,7 @@ public class Bookshelf : MonoBehaviour
         // int randomIndex = 0;
         int randomIndex = UnityEngine.Random.Range(0, bookInteractors.Length);
         currentBookInteractor = bookInteractors[randomIndex];
-        currentBookInteractor.GetChildBook().SetActive(false);
+        if (activeSocketMaterial) currentBookInteractor.GetComponentInChildren<Renderer>().material = activeSocketMaterial;
         socketInteractor = bookInteractors[randomIndex].SocketInteractor;
         socketInteractor.enabled = true;
         socketInteractor.selectExited.AddListener(OnSelectExited);
@@ -116,6 +106,12 @@ public class Bookshelf : MonoBehaviour
         {
             booksSpawner.DestroySpawnedBooks();
         }
+    }
+    
+    private void OnSelectExited(SelectExitEventArgs arg0)
+    {
+        currentBook = arg0.interactableObject.transform.GetComponent<Book>();
+        OnInsertedBook?.Invoke();
     }
 
     private void OnDrawGizmosSelected()

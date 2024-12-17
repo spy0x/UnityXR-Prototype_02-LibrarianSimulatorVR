@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.State;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -26,11 +27,8 @@ public class BookInteractor : MonoBehaviour
         XRGrabInteractable grabInteractable = arg0.interactableObject as XRGrabInteractable;
         if (grabInteractable) grabInteractable.enabled = false;
         arg0.interactableObject.transform.tag = "Untagged";
-    }
-
-    public GameObject GetChildBook()
-    {
-        if (transform.childCount == 0) return null;
-        return transform.GetChild(0).gameObject;
+        transform.GetChild(0).gameObject.SetActive(false);
+        XRInteractableAffordanceStateProvider affordanceStateProvider = grabInteractable.GetComponent<XRInteractableAffordanceStateProvider>();
+        if (affordanceStateProvider) affordanceStateProvider.enabled = false;
     }
 }

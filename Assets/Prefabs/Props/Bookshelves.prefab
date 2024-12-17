@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1392764796268457921, guid: 91854b39894b66a44a1375021f4401ae, type: 3}
       propertyPath: m_Name
-      value: Bookshelves Variant
+      value: Bookshelves
       objectReference: {fileID: 0}
+    - target: {fileID: 3593768431478916504, guid: 91854b39894b66a44a1375021f4401ae, type: 3}
+      propertyPath: activeSocketMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: a5a9d84257a24e1439001e6c31a15c59, type: 2}
     - target: {fileID: 7278120434779140544, guid: 91854b39894b66a44a1375021f4401ae, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
