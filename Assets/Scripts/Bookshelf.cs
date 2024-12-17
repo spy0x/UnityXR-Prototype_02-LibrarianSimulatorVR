@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.State;
@@ -18,7 +19,8 @@ public enum DeweyCategory
     Technology = 600,
     Arts = 700,
     Literature = 800,
-    History = 900
+    History = 900,
+    None = 666
 }
 
 public class Bookshelf : MonoBehaviour
@@ -28,6 +30,7 @@ public class Bookshelf : MonoBehaviour
     [Header("DEVELOP")]
     [SerializeField] BooksSpawner[] booksSpawners;
     [SerializeField] Material activeSocketMaterial;
+    [SerializeField] TextMeshProUGUI[] signTextsUI;
 
     public static event Action OnInsertedBook;
     
@@ -41,6 +44,35 @@ public class Bookshelf : MonoBehaviour
     public bool IsActive => isActive;
     private Book currentBook;
     public Book CurrentBook => currentBook;
+    
+    private Dictionary<DeweyCategory, string> signTexts = new Dictionary<DeweyCategory, string>
+    {
+        {DeweyCategory.General, "General"},
+        {DeweyCategory.Philosophy, "Philosophy"},
+        {DeweyCategory.Religion, "Religion"},
+        {DeweyCategory.SocialScience, "Social Science"},
+        {DeweyCategory.Language, "Language"},
+        {DeweyCategory.PureScience, "Pure Science"},
+        {DeweyCategory.Technology, "Technology"},
+        {DeweyCategory.Arts, "Arts"},
+        {DeweyCategory.Literature, "Literature"},
+        {DeweyCategory.History, "History"},
+        {DeweyCategory.None, ""}
+    };
+
+
+    private void Start()
+    {
+        SetSignTexts();
+    }
+
+    private void SetSignTexts()
+    {
+        foreach (var signTextUI in signTextsUI)
+        {
+            signTextUI.text = signTexts[category];
+        }
+    }
 
     private void DisableAllBookInteractors()
     {

@@ -1015,6 +1015,7 @@ MonoBehaviour:
   - {fileID: 2005045606441413593}
   - {fileID: 2740897159696229227}
   - {fileID: 9207027609634771773}
+  activeSocketMaterial: {fileID: 2100000, guid: a5a9d84257a24e1439001e6c31a15c59, type: 2}
 --- !u!1 &1404700197716549939
 GameObject:
   m_ObjectHideFlags: 0
