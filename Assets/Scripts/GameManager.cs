@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         do
         {
             randomBookshelf = bookshelves[Random.Range(0, bookshelves.Length)];
-        } while (!bookshelvesWithBooks.Contains(randomBookshelf));
+        } while (bookshelvesWithBooks.Contains(randomBookshelf));
 
         return randomBookshelf;
     }
