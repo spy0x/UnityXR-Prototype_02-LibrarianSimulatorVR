@@ -38,14 +38,14 @@ public class Bookshelf : MonoBehaviour
     private BookInteractor currentBookInteractor;
     public BookInteractor CurrentBookInteractor => currentBookInteractor;
     public XRSocketInteractor SocketInteractor => socketInteractor;
-    public DeweyCategory Category => category;
+    public DeweyCategory Category {get => category;}
     
     private bool isActive;
     public bool IsActive => isActive;
     private Book currentBook;
     public Book CurrentBook => currentBook;
     
-    private Dictionary<DeweyCategory, string> signTexts = new Dictionary<DeweyCategory, string>
+    public static Dictionary<DeweyCategory, string> signTexts = new Dictionary<DeweyCategory, string>
     {
         {DeweyCategory.General, "General"},
         {DeweyCategory.Philosophy, "Philosophy"},

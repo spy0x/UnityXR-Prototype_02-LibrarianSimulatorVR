@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     private float totalBooks = 0;
     private List<Bookshelf> bookshelvesWithBooks = new List<Bookshelf>();
 
+    public static GameManager Instance;
+    public Bookshelf[] Bookshelfs => bookshelves;
+
     private void OnEnable()
     {
         Bookshelf.OnInsertedBook += TryEndGame;
@@ -35,6 +38,11 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         Bookshelf.OnInsertedBook -= TryEndGame;
+    }
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this; else Destroy(gameObject);
     }
 
     private void Start()
