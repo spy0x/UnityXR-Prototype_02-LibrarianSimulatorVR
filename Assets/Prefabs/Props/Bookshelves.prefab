@@ -41,6 +41,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7880555294262798126}
     m_Modifications:
+    - target: {fileID: 1379683480835511691, guid: 7387cc35dd4a6ac4ea7f9f56f9b4b6a6, type: 3}
+      propertyPath: m_text
+      value: General
+      objectReference: {fileID: 0}
     - target: {fileID: 3472511843522940906, guid: 7387cc35dd4a6ac4ea7f9f56f9b4b6a6, type: 3}
       propertyPath: m_Name
       value: Sign (1)
@@ -114,6 +118,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7880555294262798126}
     m_Modifications:
+    - target: {fileID: 1379683480835511691, guid: 7387cc35dd4a6ac4ea7f9f56f9b4b6a6, type: 3}
+      propertyPath: m_text
+      value: General
+      objectReference: {fileID: 0}
     - target: {fileID: 3472511843522940906, guid: 7387cc35dd4a6ac4ea7f9f56f9b4b6a6, type: 3}
       propertyPath: m_Name
       value: Sign

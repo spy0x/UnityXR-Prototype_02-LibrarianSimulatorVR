@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] NearFarInteractor leftHandInteractor;
     
     // CLIMB SETTINGS
-    private List<ClimbInteractable> climbInteractables = new List<ClimbInteractable>();
-    private bool isClimbing = false;
+    private static List<ClimbInteractable> climbInteractables = new List<ClimbInteractable>();
+    private static bool isClimbing = false;
 
     void OnEnable()
     {
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
     }
 
-    public void OnClimbSelected(SelectEnterEventArgs args)
+    public static void OnClimbSelected(SelectEnterEventArgs args)
     {
         ClimbInteractable climbInteractable = args.interactableObject as ClimbInteractable;
         if (climbInteractable == null) return;
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
         isClimbing = true;
     }
 
-    public void OnClimbDeselected(SelectExitEventArgs args)
+    public static void OnClimbDeselected(SelectExitEventArgs args)
     {
         ClimbInteractable climbInteractable = args.interactableObject as ClimbInteractable;
         if (climbInteractable == null) return;
