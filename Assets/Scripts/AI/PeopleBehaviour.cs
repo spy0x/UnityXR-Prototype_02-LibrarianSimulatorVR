@@ -38,6 +38,7 @@ public class PeopleBehaviour : MonoBehaviour
 
     [FormerlySerializedAs("distanceView")] [SerializeField]
     private float defaulDistanceView = 5f;
+    [SerializeField] float maxVerticalDistanceView = 2f;
 
     [SerializeField] private float runningDistanceView = 15f;
     [SerializeField] [Range(0, 1)] private float chanceToGoIdle = 0.3f;
@@ -319,7 +320,9 @@ public class PeopleBehaviour : MonoBehaviour
         DeweyCategory category;
         do
         {
-            category = (DeweyCategory)UnityEngine.Random.Range(0, Enum.GetValues(typeof(DeweyCategory)).Length);
+            category = (DeweyCategory)(UnityEngine.Random.Range(0, Enum.GetValues(typeof(DeweyCategory)).Length)*100);
+            Debug.Log(category);
+            Debug.Log(bookSections.Count);
         } while (!bookSections.ContainsKey(category));
 
         return category;
@@ -330,8 +333,10 @@ public class PeopleBehaviour : MonoBehaviour
     {
         Vector3 directionToPlayer = player.position - transform.position;
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+        float verticalDistance = Mathf.Abs(player.position.y - transform.position.y);
 
-        if (directionToPlayer.magnitude <= currentDistanceView && angleToPlayer <= defaultAngleView / 2)
+        if (directionToPlayer.magnitude <= currentDistanceView && angleToPlayer <= defaultAngleView / 2 &&
+            verticalDistance <= maxVerticalDistanceView)
         {
             if (Physics.Linecast(head.position, player.position, out RaycastHit hit))
             {
@@ -341,6 +346,7 @@ public class PeopleBehaviour : MonoBehaviour
 
         return false;
     }
+
 
     private void WaitRandomTime()
     {

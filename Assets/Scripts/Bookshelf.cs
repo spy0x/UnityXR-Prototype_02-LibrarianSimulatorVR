@@ -58,7 +58,7 @@ public class Bookshelf : MonoBehaviour
         { DeweyCategory.Religion, "Religion" },
         { DeweyCategory.SocialScience, "Social Science" },
         { DeweyCategory.Language, "Language" },
-        { DeweyCategory.PureScience, "Pure Science" },
+        { DeweyCategory.PureScience, "Science" },
         { DeweyCategory.Technology, "Technology" },
         { DeweyCategory.Arts, "Arts" },
         { DeweyCategory.Literature, "Literature" },
