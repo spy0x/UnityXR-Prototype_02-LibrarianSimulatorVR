@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private TextMeshPro gameOverText;
     [SerializeField] Bookshelf[] bookshelves;
     [SerializeField] float booksToOrder = 5;
     [SerializeField] private Transform[] bookSpawnPoints;
@@ -42,13 +44,21 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this; else Destroy(gameObject);
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     private void Start()
     {
+        ClearUIScreen();
         FillBooksByCategory();
         ActivateBookshelves();
+    }
+
+    private void ClearUIScreen()
+    {
+        gameOverText.gameObject.SetActive(false);
+        gameOverText.text = "";
     }
 
     private void ActivateBookshelves()
@@ -121,6 +131,11 @@ public class GameManager : MonoBehaviour
     private void TryEndGame()
     {
         if (IsGameFinished())
-            Debug.Log($"Game Fnished! Good books: {goodBooks}, Bad books: {badBooks}, Total books: {totalBooks}");
+        {
+            Debug.Log($"Game Finished! Good books: {goodBooks}, Bad books: {badBooks}, Total books: {totalBooks}");
+            gameOverText.gameObject.SetActive(true);
+            gameOverText.text =
+                $"Game Finished!\nGood books: {goodBooks}\nBad books: {badBooks}\nTotal books: {totalBooks}\nIt took you {Time.timeSinceLevelLoad / 60} minutes.";
+        }
     }
 }
