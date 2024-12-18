@@ -151,4 +151,9 @@ public class PlayerController : MonoBehaviour
         climbInteractables.Remove(climbInteractable);
         isClimbing = climbInteractables.Count > 0;
     }
+    public void SetPlayerHandInteractors(bool state)
+    {
+        leftHandInteractor.enabled = state;
+        rightHandInteractor.enabled = state;
+    }
 }

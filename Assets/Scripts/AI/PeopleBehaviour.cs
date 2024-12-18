@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -29,9 +30,15 @@ public class PeopleBehaviour : MonoBehaviour
     private Transform head;
 
     [SerializeField] private PeopleState initialState;
-    [FormerlySerializedAs("angleView")] [SerializeField] private float defaultAngleView = 45f;
+
+    [FormerlySerializedAs("angleView")] [SerializeField]
+    private float defaultAngleView = 45f;
+
     [SerializeField] private float runningAngleView = 360f;
-    [FormerlySerializedAs("distanceView")] [SerializeField] private float defaulDistanceView = 5f;
+
+    [FormerlySerializedAs("distanceView")] [SerializeField]
+    private float defaulDistanceView = 5f;
+
     [SerializeField] private float runningDistanceView = 15f;
     [SerializeField] [Range(0, 1)] private float chanceToGoIdle = 0.3f;
     [SerializeField] Vector2 randomIdleTime = new Vector2(2, 5);
@@ -46,8 +53,9 @@ public class PeopleBehaviour : MonoBehaviour
     [SerializeField] private float defaultStoppingDistance;
     [SerializeField] private float followingStopDistance;
 
-    [Header("Quest Settings")] 
-    [SerializeField] private GameObject canvas;
+    [Header("Quest Settings")] [SerializeField]
+    private GameObject canvas;
+
     [SerializeField] private TextMeshPro canvasText;
 
 
@@ -57,6 +65,7 @@ public class PeopleBehaviour : MonoBehaviour
     private Vector3 playerLastPosition;
     private Transform player; // Reference to the player
     private bool isWaiting = false;
+    private static PlayerController playerController;
 
     public PeopleState CurrentState
     {
@@ -155,6 +164,7 @@ public class PeopleBehaviour : MonoBehaviour
             }
         }
     }
+
     private void Walking()
     {
         if (IsPlayerInSight() && !HasTarget)
@@ -256,16 +266,20 @@ public class PeopleBehaviour : MonoBehaviour
         if (currentState == PeopleState.Running && other.transform == player)
         {
             Debug.Log("Player entered the trigger");
+            if (!playerController) playerController = player.GetComponentInParent<PlayerController>();
+            if (playerController) playerController.SetPlayerHandInteractors(false);
             currentDistanceView = defaulDistanceView;
             currentAngleView = defaultAngleView;
             navMeshAgent.speed = 0;
             animator.SetFloat(Speed, 0);
             isWaiting = false;
             ShowDialogCanvas();
-        } else if (currentState == PeopleState.Following && ContainsSectionColliders(other))
+        }
+        else if (currentState == PeopleState.Following && ContainsSectionColliders(other))
         {
             AudioManager.Instance.PlayMusic(MusicType.StartGame);
             if (canvasText) canvasText.text = "Thank you!";
+            if (playerController) playerController.SetPlayerHandInteractors(true);
             bookSectionColliders = null;
             animator.SetBool(IsReading, true);
             animator.SetFloat(Speed, 0);
