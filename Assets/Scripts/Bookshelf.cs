@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.State;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public enum DeweyCategory
@@ -25,39 +26,44 @@ public enum DeweyCategory
 
 public class Bookshelf : MonoBehaviour
 {
-    [SerializeField, OnValueChanged("SetSignTexts") ] DeweyCategory category;
+    [SerializeField, OnValueChanged("SetSignTexts")]
+    DeweyCategory category;
+
     [SerializeField] BookInteractor[] bookInteractors;
-    [Header("DEVELOP")]
-    [SerializeField] BooksSpawner[] booksSpawners;
+    [Header("DEVELOP")] [SerializeField] BooksSpawner[] booksSpawners;
     [SerializeField] Material activeSocketMaterial;
     [SerializeField] TextMeshProUGUI[] signTextsUI;
 
     public static event Action OnInsertedBook;
-    
+
     private XRSocketInteractor socketInteractor;
     private BookInteractor currentBookInteractor;
     public BookInteractor CurrentBookInteractor => currentBookInteractor;
     public XRSocketInteractor SocketInteractor => socketInteractor;
-    public DeweyCategory Category {get => category;}
-    
+
+    public DeweyCategory Category
+    {
+        get => category;
+    }
+
     private bool isActive;
     public bool IsActive => isActive;
     private Book currentBook;
     public Book CurrentBook => currentBook;
-    
+
     public static Dictionary<DeweyCategory, string> signTexts = new Dictionary<DeweyCategory, string>
     {
-        {DeweyCategory.General, "General"},
-        {DeweyCategory.Philosophy, "Philosophy"},
-        {DeweyCategory.Religion, "Religion"},
-        {DeweyCategory.SocialScience, "Social Science"},
-        {DeweyCategory.Language, "Language"},
-        {DeweyCategory.PureScience, "Pure Science"},
-        {DeweyCategory.Technology, "Technology"},
-        {DeweyCategory.Arts, "Arts"},
-        {DeweyCategory.Literature, "Literature"},
-        {DeweyCategory.History, "History"},
-        {DeweyCategory.None, ""}
+        { DeweyCategory.General, "General" },
+        { DeweyCategory.Philosophy, "Philosophy" },
+        { DeweyCategory.Religion, "Religion" },
+        { DeweyCategory.SocialScience, "Social Science" },
+        { DeweyCategory.Language, "Language" },
+        { DeweyCategory.PureScience, "Pure Science" },
+        { DeweyCategory.Technology, "Technology" },
+        { DeweyCategory.Arts, "Arts" },
+        { DeweyCategory.Literature, "Literature" },
+        { DeweyCategory.History, "History" },
+        { DeweyCategory.None, "" }
     };
 
 
@@ -71,6 +77,9 @@ public class Bookshelf : MonoBehaviour
         foreach (var signTextUI in signTextsUI)
         {
             signTextUI.text = signTexts[category];
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(signTextUI);
+#endif
         }
     }
 
@@ -84,9 +93,10 @@ public class Bookshelf : MonoBehaviour
 
     private void OnDisable()
     {
-        if(!socketInteractor) return;
+        if (!socketInteractor) return;
         socketInteractor.selectEntered.RemoveListener(OnSelectEntered);
     }
+
     public void ChooseRandomSocket()
     {
         DisableAllBookInteractors();
@@ -94,7 +104,8 @@ public class Bookshelf : MonoBehaviour
         // int randomIndex = 0;
         int randomIndex = UnityEngine.Random.Range(0, bookInteractors.Length);
         currentBookInteractor = bookInteractors[randomIndex];
-        if (activeSocketMaterial) currentBookInteractor.GetComponentInChildren<Renderer>().material = activeSocketMaterial;
+        if (activeSocketMaterial)
+            currentBookInteractor.GetComponentInChildren<Renderer>().material = activeSocketMaterial;
         currentBookInteractor.transform.GetChild(0).GetComponentInChildren<Collider>().enabled = false;
         socketInteractor = bookInteractors[randomIndex].SocketInteractor;
         socketInteractor.enabled = true;
@@ -107,7 +118,7 @@ public class Bookshelf : MonoBehaviour
         Debug.Log(currentBook && currentBook.Category == category);
         return currentBook && currentBook.Category == category;
     }
-    
+
     [Button]
     private void SpawnBooks()
     {
@@ -116,6 +127,7 @@ public class Bookshelf : MonoBehaviour
             booksSpawner.SpawnBooks();
         }
     }
+
     [Button("Spawn Books In Interactors")]
     private void SpawnBooksInInteractors()
     {
@@ -124,6 +136,7 @@ public class Bookshelf : MonoBehaviour
             bookInteractor.BookSpawner.SpawnBooks();
         }
     }
+
     [Button("Clear Interactor Books")]
     private void ClearBooks()
     {
@@ -132,6 +145,7 @@ public class Bookshelf : MonoBehaviour
             bookInteractor.BookSpawner.DestroySpawnedBooks();
         }
     }
+
     [Button("Clear Bookshelve Books")]
     private void ClearBookshelveBooks()
     {
@@ -140,7 +154,7 @@ public class Bookshelf : MonoBehaviour
             booksSpawner.DestroySpawnedBooks();
         }
     }
-    
+
     private void OnSelectEntered(SelectEnterEventArgs arg0)
     {
         currentBook = arg0.interactableObject.transform.GetComponent<Book>();
