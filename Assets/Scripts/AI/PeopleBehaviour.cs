@@ -202,9 +202,7 @@ public class PeopleBehaviour : MonoBehaviour
             }
             else if (patrolPoints)
             {
-                HasTarget = false;
-                playerLastPosition = Vector3.zero;
-                WaitRandomTime();
+                GoToIdle();
             }
         }
         else if (playerLastPosition != Vector3.zero)
@@ -213,18 +211,23 @@ public class PeopleBehaviour : MonoBehaviour
         }
         else if (patrolPoints)
         {
-            HasTarget = false;
-            playerLastPosition = Vector3.zero;
-            WaitRandomTime();
+            GoToIdle();
         }
 
         if (Vector3.Distance(transform.position, navMeshAgent.destination) <= navMeshAgent.stoppingDistance)
         {
-            HasTarget = false;
-            playerLastPosition = Vector3.zero;
-            WaitRandomTime();
+            GoToIdle();
         }
     }
+
+    private void GoToIdle()
+    {
+        AudioManager.Instance.PlayMusic(MusicType.StartGame);
+        HasTarget = false;
+        playerLastPosition = Vector3.zero;
+        WaitRandomTime();
+    }
+
     private void Following()
     {
         // TODO: disable climb features
@@ -261,6 +264,7 @@ public class PeopleBehaviour : MonoBehaviour
             ShowDialogCanvas();
         } else if (currentState == PeopleState.Following && ContainsSectionColliders(other))
         {
+            AudioManager.Instance.PlayMusic(MusicType.StartGame);
             if (canvasText) canvasText.text = "Thank you!";
             bookSectionColliders = null;
             animator.SetBool(IsReading, true);
@@ -336,6 +340,7 @@ public class PeopleBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        AudioManager.Instance.PlayMusic(MusicType.Running);
         HasTarget = true;
         currentDistanceView = runningDistanceView;
         currentAngleView = runningAngleView;
