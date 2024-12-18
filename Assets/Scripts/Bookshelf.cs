@@ -25,7 +25,7 @@ public enum DeweyCategory
 
 public class Bookshelf : MonoBehaviour
 {
-    [SerializeField] DeweyCategory category;
+    [SerializeField, OnValueChanged("SetSignTexts") ] DeweyCategory category;
     [SerializeField] BookInteractor[] bookInteractors;
     [Header("DEVELOP")]
     [SerializeField] BooksSpawner[] booksSpawners;
