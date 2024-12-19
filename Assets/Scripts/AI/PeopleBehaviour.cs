@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using TMPro;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -46,6 +49,9 @@ public class PeopleBehaviour : MonoBehaviour
     [SerializeField] private float readingTime = 20f;
     [SerializeField] private float playerPresenceDistance = 3f;
 
+    [SerializeField] private float jumpScareDuration = 2f;
+    [SerializeField] private Camera jumpScareCamera;
+
     [Header("Locomotion Settings")] [SerializeField]
     private float walkingSpeed = 1f;
 
@@ -67,6 +73,7 @@ public class PeopleBehaviour : MonoBehaviour
     private Transform player; // Reference to the player
     private bool isWaiting = false;
     private static PlayerController playerController;
+    private static XROrigin xrOrigin;
 
     public PeopleState CurrentState
     {
@@ -92,6 +99,7 @@ public class PeopleBehaviour : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("MainCamera").transform;
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.stoppingDistance = defaultStoppingDistance;
         currentState = initialState;
     }
 
@@ -130,6 +138,7 @@ public class PeopleBehaviour : MonoBehaviour
                 Walking();
                 break;
             case PeopleState.Running:
+                navMeshAgent.speed = runningSpeed;
                 animator.SetFloat(Speed, navMeshAgent.velocity.magnitude);
                 Running();
                 break;
@@ -137,6 +146,8 @@ public class PeopleBehaviour : MonoBehaviour
                 Reading();
                 break;
             case PeopleState.Talking:
+                navMeshAgent.speed = 0;
+                animator.SetFloat(Speed, 0);
                 break;
             case PeopleState.Following:
                 navMeshAgent.speed = runningSpeed;
@@ -241,7 +252,6 @@ public class PeopleBehaviour : MonoBehaviour
 
     private void Following()
     {
-        // TODO: disable climb features
         navMeshAgent.SetDestination(player.position);
     }
 
@@ -266,28 +276,56 @@ public class PeopleBehaviour : MonoBehaviour
     {
         if (currentState == PeopleState.Running && other.transform == player)
         {
-            Debug.Log("Player entered the trigger");
-            if (!playerController) playerController = player.GetComponentInParent<PlayerController>();
-            if (playerController) playerController.SetPlayerHandInteractors(false);
-            currentDistanceView = defaulDistanceView;
-            currentAngleView = defaultAngleView;
-            navMeshAgent.speed = 0;
-            animator.SetFloat(Speed, 0);
-            isWaiting = false;
-            ShowDialogCanvas();
+            PlayerCaught();
         }
         else if (currentState == PeopleState.Following && ContainsSectionColliders(other))
         {
-            AudioManager.Instance.PlayMusic(MusicType.StartGame);
-            if (canvasText) canvasText.text = "Thank you!";
-            if (playerController) playerController.SetPlayerHandInteractors(true);
-            bookSectionColliders = null;
-            animator.SetBool(IsReading, true);
-            animator.SetFloat(Speed, 0);
-            timer = 0;
-            navMeshAgent.stoppingDistance = defaultStoppingDistance;
-            SetState(PeopleState.Reading);
+            SectionLibraryFound();
         }
+    }
+
+    private void PlayerCaught()
+    {
+        if (!playerController) playerController = player.GetComponentInParent<PlayerController>();
+        if (playerController) playerController.SetPlayerHandInteractors(false);
+        currentDistanceView = defaulDistanceView;
+        currentAngleView = defaultAngleView;
+        // navMeshAgent.speed = 0;
+        // animator.SetFloat(Speed, 0);
+        isWaiting = false;
+        navMeshAgent.stoppingDistance = followingStopDistance;
+        SetState(PeopleState.Talking);
+        StartCoroutine(TakeCameraControl());
+    }
+    
+    private void SectionLibraryFound()
+    {
+        AudioManager.Instance.PlayMusic(MusicType.StartGame);
+        if (canvasText) canvasText.text = "Thank you!";
+        if (playerController) playerController.SetPlayerHandInteractors(true);
+        bookSectionColliders = null;
+        animator.SetBool(IsReading, true);
+        animator.SetFloat(Speed, 0);
+        timer = 0;
+        navMeshAgent.stoppingDistance = defaultStoppingDistance;
+        SetState(PeopleState.Reading);
+    }
+
+    private IEnumerator TakeCameraControl()
+    {
+        if (!xrOrigin) xrOrigin = playerController.GetComponent<XROrigin>();
+        if (xrOrigin) xrOrigin.Camera.enabled = false;
+        EnableMovement(false);
+        jumpScareCamera.enabled = true;
+        Vector3 directionToEnemy = (transform.position - player.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
+        player.rotation = targetRotation;
+        yield return new WaitForSeconds(jumpScareDuration);
+        if (xrOrigin) xrOrigin.Camera.enabled = true;
+        jumpScareCamera.enabled = false;
+        EnableMovement(true);
+        SetState(PeopleState.Following);
+        ShowDialogCanvas();
     }
 
     private bool ContainsSectionColliders(Collider other)
@@ -310,9 +348,6 @@ public class PeopleBehaviour : MonoBehaviour
         targetBookSection = category;
         if (canvasText) canvasText.text = $"Can you take me to the {Bookshelf.signTexts[category]} section?";
         if (canvas) canvas.SetActive(true);
-        Debug.Log($"Can you take me to the section {Bookshelf.signTexts[category]}?");
-        navMeshAgent.stoppingDistance = followingStopDistance;
-        SetState(PeopleState.Following);
     }
 
     private DeweyCategory GetRandomBookSection()
@@ -321,8 +356,6 @@ public class PeopleBehaviour : MonoBehaviour
         do
         {
             category = (DeweyCategory)(UnityEngine.Random.Range(0, Enum.GetValues(typeof(DeweyCategory)).Length)*100);
-            Debug.Log(category);
-            Debug.Log(bookSections.Count);
         } while (!bookSections.ContainsKey(category));
 
         return category;
